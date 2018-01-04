@@ -30,3 +30,21 @@ const validateABN = abn => {
 ```js
 validateABN('51824753556')
 ```
+
+### validateMod10v01
+
+Validate the given number with Mod10V01 (Luhn's alogorithm)
+
+```js
+const validateMod10v01 = inp => {
+  if (inp.length>20||isNaN(parseInt(inp))) return false
+  let w = [...inp].reduceRight((acc,itm,idx) => {
+    let num = parseInt(itm) * ((idx+1) % 2 == 0 ? 2 : 1)
+    return acc + (num < 10 ? num : num - 9)
+  },0)
+  return (w % 10) === 0
+}
+```
+```js
+validateMod10v01('79927398713')
+```

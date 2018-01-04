@@ -12,3 +12,13 @@ export const validateABN = abn => {
   const w = [10,1,3,5,7,9,11,13,15,17,19].reduce((acc,itm,idx) => acc + (idx===0 ? (parseInt(abn.charAt(idx))-1)*itm : parseInt(abn.charAt(idx))*itm),0)
   return (w % 89) === 0
 }
+
+// Function to validate the number with Mod10V01 (Luhn's alogorithm)
+const validateMod10v01 = inp => {
+  if (inp.length>20||isNaN(parseInt(inp))) return false
+  let w = [...inp].reduceRight((acc,itm,idx) => {
+    let num = parseInt(itm) * ((idx+1) % 2 == 0 ? 2 : 1)
+    return acc + (num < 10 ? num : num - 9)
+  },0)
+  return (w % 10) === 0
+}
